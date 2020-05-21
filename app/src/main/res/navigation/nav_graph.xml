@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragTodoList">
+
+
+    <fragment
+        android:id="@+id/fragTodoList"
+        android:name="com.fromgod.todo.mvvm.view.FragTodoList"
+        android:label="frag_todo_list"
+        tools:layout="@layout/frag_todo_list">
+
+        <action
+            android:id="@+id/action_fragTodoList_to_fragTodoCreate"
+            app:destination="@id/fragTodoCreate" />
+
+        <action
+            android:id="@+id/action_fragTodoList_to_fragTodoUpdate"
+            app:destination="@id/fragTodoUpdate" />
+
+        <action
+            android:id="@+id/action_fragTodoList_to_fragTodoListDone"
+            app:destination="@id/fragTodoListDone" />
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/fragTodoListDone"
+        android:name="com.fromgod.todo.mvvm.view.FragTodoListDone"
+        android:label="frag_todo_list_done"
+        tools:layout="@layout/frag_todo_list_done" />
+
+
+    <fragment
+        android:id="@+id/fragTodoCreate"
+        android:name="com.fromgod.todo.mvvm.view.FragTodoCreate"
+        android:label="frag_todo_create"
+        tools:layout="@layout/frag_todo_create" />
+
+
+    <fragment
+        android:id="@+id/fragTodoUpdate"
+        android:name="com.fromgod.todo.mvvm.view.FragTodoUpdate"
+        android:label="frag_todo_update"
+        tools:layout="@layout/frag_todo_update" >
+
+        <argument android:name="todoItem" app:argType="com.fromgod.todo.mvvm.model.entity.Todo"/>
+
+    </fragment>
+
+
+</navigation>
