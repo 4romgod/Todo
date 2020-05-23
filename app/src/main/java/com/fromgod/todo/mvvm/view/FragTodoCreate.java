@@ -1,6 +1,7 @@
 package com.fromgod.todo.mvvm.view;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -20,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -166,14 +168,16 @@ public class FragTodoCreate extends Fragment implements View.OnClickListener {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
             case R.id.save:
-                //TODO Create functionality to saved a todo into our local database
                 saveTodo();
 
                 Toast.makeText(getContext(), "Saved...", Toast.LENGTH_SHORT).show();
                 getActivity().onBackPressed();
+
+                hideSoftBoard(layoutMain);
                 break;
 
             default:
+                hideSoftBoard(layoutMain);
                 //Toast.makeText(getActivity(), "Invalid Item Selected", Toast.LENGTH_SHORT).show();
                 getActivity().onBackPressed();
                 break;
@@ -185,6 +189,12 @@ public class FragTodoCreate extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
+    }
+
+
+    public void hideSoftBoard(View view){
+        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
 

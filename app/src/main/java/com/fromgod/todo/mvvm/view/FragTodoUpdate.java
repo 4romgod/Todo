@@ -1,14 +1,15 @@
 package com.fromgod.todo.mvvm.view;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -68,6 +69,8 @@ public class FragTodoUpdate extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        todo = (Todo) getArguments().getSerializable("TODO_ITEM");
+        editTextTitle.setText(todo.getTitle());
 
         //set it as current date.
         String date = new SimpleDateFormat("dd MMM, yyyy", Locale.getDefault()).format(new Date());
@@ -167,13 +170,12 @@ public class FragTodoUpdate extends Fragment implements View.OnClickListener {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
             case R.id.save: {
-                Todo todo = (Todo) getArguments().getSerializable("TODO_ITEM");
-
+                hideSoftBoard(layoutMain);
                 updateTodo(todo);
                 break;
             }
             default: {
-                //Toast.makeText(getActivity(), "Invalid Item Selected", Toast.LENGTH_SHORT).show();
+                hideSoftBoard(layoutMain);
                 getActivity().onBackPressed();
                 break;
             }
@@ -187,5 +189,10 @@ public class FragTodoUpdate extends Fragment implements View.OnClickListener {
 
     }
 
+
+    public void hideSoftBoard(View view){
+        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
 
 }       //end class
